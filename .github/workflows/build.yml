@@ -1,0 +1,23 @@
+name: gh page
+
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: Checkout
+    - uses: addnab/docker-run-action@v3
+      with:
+        image: busybox:latest
+        options: -v ${{ github.workspace }}:/work -e ABC=123
+        run: |
+          echo "Running Script"
+          echo $ABC
+          pwd
+          ls /
+          ls /work
+          cat /work/do.sh
+          sh /work/do.sh
